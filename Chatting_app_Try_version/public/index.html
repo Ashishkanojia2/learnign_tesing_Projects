@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Chat App</title>
+  </head>
+  <body>
+    <h1>Chat Application</h1>
+
+    <input type="text" id="message" placeholder="Enter your Message" />
+    <div id="allmessages"></div>
+    <!-- <button onclick="createConnection()"> Create web Socket Connection</button> -->
+    <button id="sendbtn">Send</button>
+    <script src="/socket.io/socket.io.js"></script>
+    <script>
+      //
+      //
+
+      var socket = io(); // this is for connection web socket to server
+      const sendbtn = document.getElementById("sendbtn");
+      const messageInput = document.getElementById("message");
+      const allmessage = document.getElementById("allmessages");
+
+      //
+      //
+      //
+      //age is naame se front end is event atta hia===>>  kon-sa-event-emit-krna-hai-kuch bhee-naam-dedo
+      socket.on("kon-sa-event-emit-krna-hai-kuch bhee-naam-dedo", (message) => {
+        const p = document.createElement("p");
+        p.innerText = message;
+        allmessage.appendChild(p);
+      });
+      //
+      //
+      //
+      //
+
+      sendbtn.addEventListener("click", (e) => {
+        const message = messageInput.value;
+        console.log(message);
+        socket.emit("user_message", message);
+      });
+    </script>
+  </body>
+</html>
